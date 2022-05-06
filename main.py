@@ -32,8 +32,8 @@ from scipy import asarray as ar,exp
 import optuna 
 
 # %% DATA CONFIGURATION #######
-
-data = data_config.config("stim_1to20.mat")
+dataset_dir = ""  # path to directory that contains the dataset 
+data = data_config.config(dataset_dir + "/stim_1to20.mat")
 
 # %% parameters dictionary #######
 # models: beta_VAE, beta_VAE2, beta_VAE3, all_conv_VAE, all_conv_VAE2, layers2_VAE, linear_VAE
