@@ -32,7 +32,7 @@ from scipy import asarray as ar,exp
 import optuna 
 
 # %% DATA CONFIGURATION #######
-dataset_dir = ""
+dataset_dir = ""  # dataset directory that contains data matrices
 data = data_config.config(dataset_dir + "/stim_1to20.mat")
 
 # %% parameters dictionary #######
