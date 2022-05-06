@@ -739,7 +739,7 @@ with torch.no_grad():
     
   #%% ITERATIVE DENOISING PROCEDURE
 import random
-num_iteration = 20
+num_iteration = 10
 plots.denoising(num_iteration, params['latent'], vae_enc, vae_dec, device)
 
 
