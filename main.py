@@ -32,7 +32,7 @@ from scipy import asarray as ar,exp
 import optuna 
 
 # %% DATA CONFIGURATION #######
-dataset_dir = ""  # dataset directory that contains data matrices
+dataset_dir = "/dataset"  # dataset directory that contains data matrices
 data = data_config.config(dataset_dir + "/stim_1to20.mat")
 
 # %% parameters dictionary #######
@@ -41,16 +41,16 @@ data = data_config.config(dataset_dir + "/stim_1to20.mat")
 params = {'num_workers'       : 0,
           "batch"             : 60,
           'lr'                : 0.0005,
-          'w_decay'           : 0.000005,
+          'w_decay'           : 0.00001,
           'num_epochs'        : 1000,
           'latent'            : 90,
           'early_stopping'    : True,
           'seed'              : 10,
           'save_model'        : True,
           'plot_losses'       : True,
-          'model'             : 'beta_VAE3',
+          'model'             : 'layers2_VAE',
           'annealing'         : True,
-          'ann_par'           : [0,6],
+          'ann_par'           : [0,4],
           'ann_type'          : 'linear'}
 
 if params['annealing'] == True:
