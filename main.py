@@ -269,79 +269,7 @@ plt.savefig(plots_dir + f'/increase_from{start}')
 plt.show()
 plt.close()
 
-#%%
-########## AVERAGE NUMEROSITY VECTORS MORPHING ##################################
-'''#z = codes['z'][0]
-mu = codes['mu'][0]
-logvar = codes['logvar'][0]
-y = codes['y'][0].numpy()
 
-
-def average_vector(num, latent):
-  vect = torch.zeros(1, latent)
-  indices_num, _ = np.where(y==num)
-  for i in indices_num:
-    vect[0] += mu[i]
-  return vect/len(indices_num)
-
-ind_1 = average_vector(1, latent)
-ind_2 = average_vector(2, latent)
-ind_3 = average_vector(3, latent)
-
-random_vector = mu[0]
-
-N=7
-for i in range(N):
-    with torch.no_grad():
-        vae_dec.eval()
-        sample_new = random_vector + (ind_3-ind_1) * i
-        rec = vae_dec(sample_new.to(device).reshape(1,latent))
-        plt.subplot(1,N,i+1)
-        plt.axis('off')
-        #plt.tight_layout(0.3)
-        plt.imshow(rec.cpu().squeeze().detach().numpy(),  cmap='gist_gray')
-'''
-
-#%% FIRST PCA, THEN SEPARATION small v. large
-'''
-data_list1 = [codes[key][0].detach().cpu().numpy() for key in codes.keys()]
-
-n_range = np.median(data_list1[2])
-ch_range = np.median(data_list1[3])
-fa_range = np.median(data_list1[4])
-tsa_range = np.median(data_list1[5])
-a_range = np.median(data_list1[6])
-
-pca, y, redux = plots.latent_space(method = PCA, latent_code = codes, n_dimensions = 2, dimensions = ["mu", "y"])
-data_dict = {'pca': pca, 'n': data_list1[2], 'ch': data_list1[3], 'fa': data_list1[4], 'tsa': data_list1[5], 'a': data_list1[5], 'threshold': [-1 for i in range(len(pca))]}
-
-for i in range(len(pca)):
-    if data_dict['n'][i] < n_range and data_dict['ch'][i] < ch_range and data_dict['fa'][i] < fa_range and data_dict['tsa'][i] < tsa_range and data_dict['a'][i] < a_range:
-        data_dict['threshold'][i] = 0
-    elif data_dict['n'][i] >= n_range and data_dict['ch'][i] >= ch_range and data_dict['fa'][i] >= fa_range and data_dict['tsa'][i] >= tsa_range and data_dict['a'][i] >= a_range:
-        data_dict['threshold'][i] = 1
-
-indeces_small = [i for i in range(len(pca)) if data_dict['threshold'][i] == 0]
-indeces_large = [i for i in range(len(pca)) if data_dict['threshold'][i] == 1]
-indeces_pca = [i for i in range(len(pca)) if data_dict['threshold'][i] == 1 or data_dict['threshold'][i] == 0]
-
-pca1_small = [data_dict['pca'][i][0] for i in indeces_small]
-pca2_small = [data_dict['pca'][i][1] for i in indeces_small]
-Y_small = [int(i) for i in data_dict['n'][indeces_small]]
-
-pca1_large = [data_dict['pca'][i][0] for i in indeces_large]
-pca2_large = [data_dict['pca'][i][1] for i in indeces_large]
-Y_large = [int(i) for i in data_dict['n'][indeces_large]]
-
-pca1 = [data_dict['pca'][i][0] for i in indeces_pca]
-pca2 = [data_dict['pca'][i][1] for i in indeces_pca]
-Y = [int(i) for i in data_dict['n'][indeces_pca]]
-
-plt.scatter(pca1_small, pca2_small, c = Y_small)
-plt.scatter(pca1_large, pca2_large, c = Y_large)
-plt.scatter(pca1, pca2, c=Y)
-plt.colorbar()
-'''
 #%% FIRST SEPARATION small v. large, THEN PCA
 
 data_list1 = [codes[key][0].detach().cpu().numpy() for key in codes.keys()]
