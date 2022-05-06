@@ -32,13 +32,12 @@ from scipy import asarray as ar,exp
 import optuna 
 
 # %% DATA CONFIGURATION #######
-
-data = data_config.config("stim_1to20.mat")
+dataset_dir = ""
+data = data_config.config(dataset_dir + "/stim_1to20.mat")
 
 # %% parameters dictionary #######
 # models: beta_VAE, beta_VAE2, beta_VAE3, all_conv_VAE, all_conv_VAE2, layers2_VAE, linear_VAE
 # annealing schedules: linear, cyclical_linear
-'''
 params = {'num_workers'       : 0,
           "batch"             : 60,
           'lr'                : 0.0005,
@@ -53,8 +52,6 @@ params = {'num_workers'       : 0,
           'annealing'         : True,
           'ann_par'           : [0,6],
           'ann_type'          : 'linear'}
-'''
-params = {'num_workers': 0, 'batch': 40, 'lr': 0.0001, 'w_decay': 1e-05, 'num_epochs': 500, 'latent': 100, 'seed': 10, 'save_model': True, 'plot_losses': True, 'model': 'layers2_VAE', 'annealing': True, 'ann_par': [0, 5], 'ann_type': 'cyclical_linear', 'train': True}
 
 if params['annealing'] == True:
     params_dir = str(params['model']) + '_ep' + str(params['num_epochs']) + '_lat' + str(params['latent']) +'_seed' + str(params['seed']) + '_beta' + params['ann_type'] + str(params['ann_par'][1])
