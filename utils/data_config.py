@@ -8,8 +8,8 @@ import numpy as np
 import mat73
 
 ### dataset configuration from MATLAB matrices. The images matrices are preprocessed with 2 hard thresholds at 0 and 1 ###
-def config(dir, dataset):
-    path = Path(dir + dataset)
+def config(dataset_dir):
+    path = Path(dataset_dir)
     data = loadmat(path)
     data.pop('__header__')
     data.pop('__version__')
