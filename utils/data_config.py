@@ -8,8 +8,8 @@ import numpy as np
 import mat73
 
 ### dataset configuration from MATLAB matrices. The images matrices are preprocessed with 2 hard thresholds at 0 and 1 ###
-def config(dataset):
-    path = Path("C:/Users/micheluzzo/Desktop/Simone/NumerosityPerception/dataset/" + dataset)
+def config(dir, dataset):
+    path = Path(dir + dataset)
     data = loadmat(path)
     data.pop('__header__')
     data.pop('__version__')
@@ -27,40 +27,6 @@ def config(dataset):
     data = [(data_dict[key[0]][i], data_dict[key[1]][i], data_dict[key[2]][i], data_dict[key[3]][i], data_dict[key[4]][i], data_dict[key[5]][i]) for i in range(len(data_dict["N"]))]
     return data
 
-def config_alternative(dataset):
-    path = Path("C:/Users/micheluzzo/Desktop/Simone/NumerosityPerception/dataset/" + dataset)
-    data = loadmat(path)
-    data.pop('__header__')
-    data.pop('__version__')
-    data.pop('__globals__')
-    idx = list(data.keys())
-    for i in idx:
-        data[i] = data[i].transpose()
-    data["D"][data["D"]<=0] = 0
-    data["D"][data["D"]>=1] = 1
-        
-    data_dict = {"D" : data[idx[1]].reshape(3380,1,100,100), "N" :data[idx[3]], "CH" : data[idx[0]],
-                 "FA": data[idx[2]], "TSA": data[idx[4]], "A" : data[idx[5]]} 
-    
-    key = [key for key in data_dict.keys()]
-    data = [(data_dict[key[0]][i], data_dict[key[1]][i], data_dict[key[2]][i], data_dict[key[3]][i], data_dict[key[4]][i], data_dict[key[5]][i]) for i in range(len(data_dict["N"]))]
-    return data
-
-def config_73(dataset):
-    path = Path("C:/Users/micheluzzo/Desktop/Simone/NumerosityPerception/dataset/" + dataset)
-    data = loadmat(path)
-    idx = list(data.keys())
-    for i in idx:
-        data[i] = data[i].transpose()
-    data["D"][data["D"]<=0] = 0
-    data["D"][data["D"]>=1] = 1
-        
-    data_dict = {"D" : data[idx[1]].reshape(3380, 100, 100), "N" :data[idx[3]], "CH" : data[idx[0]],
-                 "FA": data[idx[2]], "TSA": data[idx[4]], "A" : data[idx[5]]} 
-    
-    key = [key for key in data_dict.keys()]
-    data = [(data_dict[key[0]][i], data_dict[key[1]][i], data_dict[key[2]][i], data_dict[key[3]][i], data_dict[key[4]][i], data_dict[key[5]][i]) for i in range(len(data_dict["N"]))]
-    return data
 
 ### Pytorch ad hoc dataset class ###
 class Dataset(Dataset):
